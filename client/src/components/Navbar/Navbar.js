@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { sidebarToggle } from "../../actions/toggleActions";
 import Hamburger from "hamburger-react";
 import "./Navbar.scss";
 
-const Navbar = ({ toggle, handleToggle, showUserInfoModal, name, props }) => {
-  //   const [toggle, setToggle] = useState(true);
-
-  //   const handleToggle = () => {
-  //     setToggle(!toggle);
-  //     // console.log(toggle);
-  //   };
-
+const Navbar = ({ showUserInfoModal, props }) => {
   const handleUserMenu = () => {
     document.querySelector(".secondary-ul").classList.toggle("hide");
   };
+
+  const dispatch = useDispatch();
+  const name = useSelector((state) => state.user.name);
 
   //Logout Function for the logout button
   const logoutHandler = () => {
@@ -29,7 +27,7 @@ const Navbar = ({ toggle, handleToggle, showUserInfoModal, name, props }) => {
             <Hamburger
               rounded
               size={24}
-              onToggle={() => handleToggle(toggle)}
+              onToggle={() => dispatch(sidebarToggle())}
             />
           </li>
           <li>
@@ -42,7 +40,7 @@ const Navbar = ({ toggle, handleToggle, showUserInfoModal, name, props }) => {
           </li>
           <li>
             <button className="user" onClick={handleUserMenu}>
-              {name && name}
+              {name}
             </button>
             <ul className="secondary-ul hide">
               <li>

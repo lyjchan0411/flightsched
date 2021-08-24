@@ -6,21 +6,25 @@ import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Optionbar from "../../components/Optionbar/Optionbar";
 import UserInfoModal from "../../components/UserInfoModal/UserInfoModal";
+import { useDispatch, useSelector } from "react-redux";
+import { setUsersAction, selectUserAction } from "../../actions/userActions";
+import { setPlanesAction } from "../../actions/planesActions";
+import { sidebarToggle } from "../../actions/toggleActions";
 
 export default function Userpage(props) {
   //All the States
   const [visibility, setVisibility] = useState(false);
   const [userInfoModalVisibility, setUserInfoModalVisibility] = useState(false);
-  const [toggle, setToggle] = useState(false);
+  // const [toggle, setToggle] = useState(false);
   const [planes, setPlanes] = useState();
   const [user, setUser] = useState();
-  const [userRole, setUserRole] = useState();
+  // const [userRole, setUserRole] = useState();
   const [editToggle, setEditToggle] = useState(false);
 
-  const handleToggle = (toggleValue) => {
-    setToggle(!toggleValue);
-    console.log(toggle);
-  };
+  const users = useSelector((state) => state.users.users);
+  const sidebarToggle = useSelector((state) => state.sidebarToggle);
+
+  const dispatch = useDispatch();
 
   //Modal Show and Hidden Functions
   const showModal = () => {
@@ -43,17 +47,6 @@ export default function Userpage(props) {
     headers: { "auth-token": localStorage.getItem("token") },
   };
 
-  //function to check validation
-  // const formValidation = (name, phone, dateOfBirth, role) => {
-  //   if (!name || !phone || !dateOfBirth || !role) {
-  //     setValidation(false);
-  //     return false;
-  //   } else {
-  //     setValidation(true);
-  //     return true;
-  //   }
-  // };
-
   //Axios call URL
   const planeURL = "http://localhost:5000/api/planes";
   const userInfo__URL = "http://localhost:5000/api/users";
@@ -65,6 +58,7 @@ export default function Userpage(props) {
       .get(planeURL)
       .then((res) => {
         setPlanes(res.data);
+        dispatch(setPlanesAction(res.data));
       })
       .catch((err) => {
         console.log(err);
@@ -74,7 +68,8 @@ export default function Userpage(props) {
   const axiosUserRoleCall = () => {
     axios.get(userInfo__URL).then((res) => {
       let data = res.data;
-      setUserRole(data);
+      // setUserRole(data);
+      dispatch(setUsersAction(data));
     });
   };
 
@@ -83,49 +78,51 @@ export default function Userpage(props) {
       .get(`${userInfo__URL}/${userId}`)
       .then((res) => {
         setUser(res.data);
+        dispatch(selectUserAction(res.data));
       })
       .catch((err) => {
         console.log("Fetch User ID info error");
       });
   };
 
-  const axiosSaveFilterCall = (filterValue) => {
-    let loggedInUser = { ...user };
-    loggedInUser.filter.push({
-      name: "Filter",
-      aircraft: filterValue.aircraft,
-      instructor: filterValue.instructor,
-    });
-    console.log(loggedInUser);
-    axios
-      .put(
-        `${userInfo__URL}/${userId}`,
-        {
-          $set: {
-            filter: [
-              ...loggedInUser.filter,
-              {
-                name: "filter",
-                aircraft: loggedInUser.aircraft,
-                instructor: loggedInUser.instructor,
-              },
-            ],
-          },
-        },
-        headerToken
-      )
-      .then((res) => {
-        console.log("Save Filter Success");
-      })
-      .catch((err) => {
-        console.log("Save filter failed");
-      });
-  };
+  // const axiosSaveFilterCall = (filterValue) => {
+  //   let loggedInUser = { ...user };
+  //   loggedInUser.filter.push({
+  //     name: "Filter",
+  //     aircraft: filterValue.aircraft,
+  //     instructor: filterValue.instructor,
+  //   });
+  //   console.log(loggedInUser);
+  //   axios
+  //     .put(
+  //       `${userInfo__URL}/${userId}`,
+  //       {
+  //         $set: {
+  //           filter: [
+  //             ...loggedInUser.filter,
+  //             {
+  //               name: "filter",
+  //               aircraft: loggedInUser.aircraft,
+  //               instructor: loggedInUser.instructor,
+  //             },
+  //           ],
+  //         },
+  //       },
+  //       headerToken
+  //     )
+  //     .then((res) => {
+  //       console.log("Save Filter Success");
+  //     })
+  //     .catch((err) => {
+  //       console.log("Save filter failed");
+  //     });
+  // };
 
   //arr which only has Instructors
+
   let instructorArr = [];
-  if (userRole) {
-    instructorArr = userRole.filter((user) => user.role === "Instructor");
+  if (users) {
+    instructorArr = users.filter((user) => user.role === "Instructor");
   }
 
   //User Edit Page Submit Function
@@ -165,20 +162,17 @@ export default function Userpage(props) {
   }
   return (
     <div className="userpage">
-      <div class={toggle ? "app__sidebar--open" : "app__sidebar--close"}>
-        <Sidebar handleToggle={handleToggle} toggle={toggle} />
+      <div class={sidebarToggle ? "app__sidebar--open" : "app__sidebar--close"}>
+        <Sidebar />
       </div>
       <div
         class={
-          toggle
+          sidebarToggle
             ? "app__content app__content--open "
             : "app__content app__content--close"
         }
       >
         <Navbar
-          handleToggle={handleToggle}
-          toggle={toggle}
-          name={user && user.name}
           props={props[0]}
           history={props[0].history}
           showUserInfoModal={showUserInfoModal}
@@ -188,12 +182,12 @@ export default function Userpage(props) {
         </button>
         <Optionbar
           planes={planes}
-          user={userRole}
+          user={users}
           userInfo={user}
           showBookingModal={showModal}
           visibility={visibility}
           hideModal={hideModal}
-          axiosSaveFilterCall={axiosSaveFilterCall}
+          // axiosSaveFilterCall={axiosSaveFilterCall}
           instructorArr={instructorArr}
         />
         {/* <Modal visibility={visibility} hideModal={hideModal} /> */}

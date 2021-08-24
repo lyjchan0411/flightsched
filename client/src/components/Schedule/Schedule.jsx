@@ -3,9 +3,9 @@ import "./Schedule.scss";
 import Modal from "../../components/Modal/Modal";
 import Slot from "../Slot/Slot";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Schedule({
-  planes,
   date,
   filterValue,
   user,
@@ -17,6 +17,7 @@ export default function Schedule({
   const [slots, setSlots] = useState([]);
   const [loading, setLoading] = useState(false);
   const slotsURL = `http://localhost:5000/api/slots/${date}`;
+  const planes = useSelector((state) => state.planes.planes);
 
   const axiosSlotsCall = async () => {
     try {

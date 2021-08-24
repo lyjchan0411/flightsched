@@ -1,8 +1,9 @@
 import React from "react";
 import "./Sidebar.scss";
 import logoPlaceholder from "../../assets/logos/logo-placeholder.png";
+import { useSelector, useDispatch } from "react-redux";
 
-export default function Sidebar({ toggle, handleToggle }) {
+export default function Sidebar() {
   return (
     <div className="sidebar">
       <img src={logoPlaceholder} alt="Logo" className="sidebar__logo" />

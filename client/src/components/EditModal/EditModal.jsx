@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
 import "./EditModal.scss";
+import { useSelector } from "react-redux";
 
 let useClickOutside = (handler) => {
   let domNode = useRef();
@@ -32,7 +33,6 @@ const EditModal = ({
   setIsEditing,
   slotCall,
   isEditing,
-  planes,
   currentLocation,
   currentActivityType,
   currentStartTime,
@@ -67,6 +67,7 @@ const EditModal = ({
   const [comments, setComments] = useState(currentComments);
 
   const [errorBooking, setErrorBooking] = useState(false);
+  const planes = useSelector((state) => state.planes.planes);
 
   const handleErrorBooking = (boolean) => {
     setErrorBooking(boolean);

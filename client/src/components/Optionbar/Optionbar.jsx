@@ -3,9 +3,9 @@ import "./Optionbar.scss";
 import arrowLeft from "../../assets/icons/left-arrow.svg";
 import arrowRight from "../../assets/icons/right-arrow.svg";
 import Schedule from "../Schedule/Schedule";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Optionbar({
-  planes,
   user,
   showBookingModal,
   axiosSaveFilterCall,
@@ -20,6 +20,8 @@ export default function Optionbar({
     month: "long",
     day: "numeric",
   };
+
+  const planes = useSelector((state) => state.planes.planes);
 
   const [filterValue, setFilterValue] = useState({
     aircraft: "allAircraft",

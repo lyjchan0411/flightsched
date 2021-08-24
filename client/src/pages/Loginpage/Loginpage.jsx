@@ -25,7 +25,6 @@ function Loginpage() {
 
   let [loginValidation, setloginValidation] = useState(true);
   let [validation, setValidation] = useState(true);
-
   let [user, setUser] = useState();
   let [isLoggedIn, setIsLoggedIn] = useState(false);
   let [createToggle, setCreateToggle] = useState(false);

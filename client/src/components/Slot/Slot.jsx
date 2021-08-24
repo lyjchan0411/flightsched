@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import DetailsModal from "../DetailsModal/DetailsModal";
 import "./Slot.scss";
 import EditModal from "../EditModal/EditModal";
+import { useSelector, useDispatch } from "react-redux";
 
 const Slot = ({
   hideModal,
-  planes,
   date,
   id,
   startTime,
@@ -27,6 +27,7 @@ const Slot = ({
   const startMinute = startTime.slice(19, 21);
   const endHour = endTime.slice(16, 18);
   const endMinute = endTime.slice(19, 21);
+  const planes = useSelector((state) => state.planes.planes);
 
   // 8am = 0
   // 1 hour = 50px
@@ -50,7 +51,7 @@ const Slot = ({
   // 1 hour = 1
   // 60 minutes = 1
 
-  const width = ((endTimeZeroed - startTimeZeroed) / 60);
+  const width = (endTimeZeroed - startTimeZeroed) / 60;
 
   const style = {
     left: `calc((100% - 150px)/15*${hour} + 150px)`,
@@ -131,7 +132,6 @@ const Slot = ({
         isEditing={isEditing}
         setIsEditing={setIsEditing}
         hideModal={hideModal}
-        planes={planes}
         date={date}
         slotCall={slotCall}
         currentLocation={location}
