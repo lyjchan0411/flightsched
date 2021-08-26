@@ -68,6 +68,10 @@ const EditModal = ({
 
   const [errorBooking, setErrorBooking] = useState(false);
   const planes = useSelector((state) => state.planes.planes);
+  const users = useSelector((state) => state.users.users);
+  const customersArr = users.filter(
+    (user) => user.role.toLowerCase() !== "instructor"
+  );
 
   const handleErrorBooking = (boolean) => {
     setErrorBooking(boolean);
@@ -270,7 +274,27 @@ const EditModal = ({
               <label className="label-customer" htmlFor="customer">
                 Customer *
               </label>
-              <input
+              <select
+                onClick={(e) => setCustomer(e.target.value)}
+                onChange={removeError}
+                id="customer"
+                name="customer"
+                defaultValue={"DEFAULT"}
+              >
+                <option value="DEFAULT" disabled hidden>
+                  Select
+                </option>
+                {customersArr.map((user) => {
+                  return (
+                    <>
+                      <option key={user.id} value={user.name}>
+                        {user.name}
+                      </option>
+                    </>
+                  );
+                })}
+              </select>
+              {/* <input
                 type="text"
                 id="customer"
                 name="customer"
@@ -280,7 +304,7 @@ const EditModal = ({
                   setCustomer(e.target.value);
                   removeError(e);
                 }}
-              />
+              /> */}
             </div>
             <div className="item">
               <label htmlFor="display-name">Display Name</label>

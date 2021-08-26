@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import axios from "axios";
 import ErrorBooking from "../ErrorBooking/ErrorBooking";
 import { setMinutes, setHours } from "date-fns";
+import { useSelector } from "react-redux";
 
 import "./Modal.scss";
 import "react-datepicker/dist/react-datepicker.css";
@@ -64,8 +65,12 @@ const Modal = ({
   const [flightType, setFlightType] = useState("");
   const [flightRoute, setFlightRoute] = useState("");
   const [comments, setComments] = useState("");
-
   const [errorBooking, setErrorBooking] = useState(false);
+
+  const users = useSelector((state) => state.users.users);
+  const customersArr = users.filter(
+    (user) => user.role.toLowerCase() !== "instructor"
+  );
 
   const handleErrorBooking = (boolean) => {
     setErrorBooking(boolean);
@@ -359,7 +364,27 @@ const Modal = ({
               <label className="label-customer" htmlFor="customer">
                 Customer *
               </label>
-              <input
+              <select
+                onClick={(e) => setCustomer(e.target.value)}
+                onChange={removeError}
+                id="customer"
+                name="customer"
+                defaultValue={"DEFAULT"}
+              >
+                <option value="DEFAULT" disabled hidden>
+                  Select
+                </option>
+                {customersArr.map((user) => {
+                  return (
+                    <>
+                      <option key={user.id} value={user.name}>
+                        {user.name}
+                      </option>
+                    </>
+                  );
+                })}
+              </select>
+              {/* <input
                 type="text"
                 id="customer"
                 name="customer"
@@ -369,7 +394,7 @@ const Modal = ({
                   setCustomer(e.target.value);
                   removeError(e);
                 }}
-              />
+              /> */}
             </div>
             <div className="item">
               <label htmlFor="display-name">Display Name</label>
