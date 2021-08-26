@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "../Modal/Modal.scss";
 import "./UserInfoModal.scss";
 import ErrorBooking from "../ErrorBooking/ErrorBooking";
@@ -162,7 +162,6 @@ const UserInfoModal = ({
               state.dateOfBirth,
               state.role
             );
-            console.log(valid);
             if (valid) {
               submitHandler(
                 state,

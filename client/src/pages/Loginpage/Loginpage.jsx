@@ -148,7 +148,7 @@ function Loginpage() {
       {createToggle ? (
         <form onSubmit={createAccHandler}>
           <div className="form-container">
-            <div className="form-header">
+            <div className="login-container">
               <h2>Create Account</h2>
               <button
                 className="form-login"
@@ -221,7 +221,7 @@ function Loginpage() {
       ) : (
         <form onSubmit={loginHandler}>
           <div className="form-container">
-            <div className="form-header">
+            <div className="login-container">
               <h2>Login</h2>
               <button
                 className="form-create-btn"
