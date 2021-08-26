@@ -18,6 +18,7 @@ export default function Schedule({
   const [loading, setLoading] = useState(false);
   const slotsURL = `http://localhost:5000/api/slots/${date}`;
   const planes = useSelector((state) => state.planes.planes);
+  const users = useSelector((state) => state.users.users);
 
   const axiosSlotsCall = async () => {
     try {
@@ -121,8 +122,6 @@ export default function Schedule({
       let plane = slots.filter(
         (slot) => slot.aircraft === `${filterValue.aircraft} C172S`
       );
-      console.log(plane);
-      console.log(filterValue.aircraft);
       return (
         <>
           {plane.length > 0 ? (
@@ -224,7 +223,6 @@ export default function Schedule({
         </th>
         {planeSlot}
       </tr>;
-      console.log("No booking");
     }
   };
 

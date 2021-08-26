@@ -11,3 +11,10 @@ export const selectUserAction = (user) => {
     payload: user,
   };
 };
+
+export const instructorRoleAction = (users) => {
+  return {
+    type: "SET_INSTRUCTORS",
+    payload: users,
+  };
+};

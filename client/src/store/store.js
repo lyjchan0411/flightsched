@@ -1,5 +1,9 @@
 import { createStore, combineReducers } from "redux";
-import { usersReducer, selectUserReducer } from "../reducers/usersReducer";
+import {
+  usersReducer,
+  selectUserReducer,
+  instructorRoleReducer,
+} from "../reducers/usersReducer";
 import { planesReducer } from "../reducers/planesReducer";
 import { sidebarToggleReducer } from "../reducers/toggleReducers";
 
@@ -7,6 +11,7 @@ const allReducer = combineReducers({
   users: usersReducer,
   user: selectUserReducer,
   planes: planesReducer,
+  instructors: instructorRoleReducer,
   sidebarToggle: sidebarToggleReducer,
 });
 

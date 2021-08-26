@@ -6,13 +6,10 @@ import Schedule from "../Schedule/Schedule";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Optionbar({
-  user,
   showBookingModal,
   axiosSaveFilterCall,
   visibility,
-  userInfo,
   hideModal,
-  instructorArr,
 }) {
   let dateOption = {
     weekday: "short",
@@ -22,6 +19,8 @@ export default function Optionbar({
   };
 
   const planes = useSelector((state) => state.planes.planes);
+  const users = useSelector((state) => state.users.users);
+  const instructors = useSelector((state) => state.instructors.users);
 
   const [filterValue, setFilterValue] = useState({
     aircraft: "allAircraft",
@@ -63,7 +62,7 @@ export default function Optionbar({
 
   //Mapping Instructor Names into the Optionbox
   const optionBoxInstructorName = () => {
-    user.map((user) => {
+    users.map((user) => {
       return (
         <option key={user._id} value={user.name}>
           {user.name}
@@ -161,8 +160,8 @@ export default function Optionbar({
             onChange={optionBoxvalue}
           >
             <option value="allInstructor">All instructors</option>
-            {user &&
-              instructorArr.map((user) => {
+            {instructors &&
+              instructors.map((user) => {
                 return (
                   <option key={user._id} value={user.name}>
                     {user.name}
@@ -204,13 +203,13 @@ export default function Optionbar({
       </div>
       <Schedule
         planes={planes}
-        user={user}
+        user={users}
         date={currentDate}
         showBookingModal={showBookingModal}
         visibility={visibility}
         hideModal={hideModal}
         filterValue={filterValue}
-        instructorArr={instructorArr}
+        instructorArr={instructors}
       />
     </div>
   );

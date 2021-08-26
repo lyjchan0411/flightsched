@@ -7,7 +7,11 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import Optionbar from "../../components/Optionbar/Optionbar";
 import UserInfoModal from "../../components/UserInfoModal/UserInfoModal";
 import { useDispatch, useSelector } from "react-redux";
-import { setUsersAction, selectUserAction } from "../../actions/userActions";
+import {
+  setUsersAction,
+  selectUserAction,
+  instructorRoleAction,
+} from "../../actions/userActions";
 import { setPlanesAction } from "../../actions/planesActions";
 import { sidebarToggle } from "../../actions/toggleActions";
 
@@ -15,16 +19,18 @@ export default function Userpage(props) {
   //All the States
   const [visibility, setVisibility] = useState(false);
   const [userInfoModalVisibility, setUserInfoModalVisibility] = useState(false);
-  // const [toggle, setToggle] = useState(false);
-  const [planes, setPlanes] = useState();
   const [user, setUser] = useState();
-  // const [userRole, setUserRole] = useState();
   const [editToggle, setEditToggle] = useState(false);
 
   const users = useSelector((state) => state.users.users);
   const sidebarToggle = useSelector((state) => state.sidebarToggle);
 
+
   const dispatch = useDispatch();
+
+  //Setting the Instructor Array
+  let instructorArr = users.filter((user) => user.role === "Instructor");
+  dispatch(instructorRoleAction(instructorArr));
 
   //Modal Show and Hidden Functions
   const showModal = () => {
@@ -57,7 +63,6 @@ export default function Userpage(props) {
     axios
       .get(planeURL)
       .then((res) => {
-        setPlanes(res.data);
         dispatch(setPlanesAction(res.data));
       })
       .catch((err) => {
@@ -120,10 +125,7 @@ export default function Userpage(props) {
 
   //arr which only has Instructors
 
-  let instructorArr = [];
-  if (users) {
-    instructorArr = users.filter((user) => user.role === "Instructor");
-  }
+
 
   //User Edit Page Submit Function
   const submitHandler = (state, name, phone, dateOfBirth, role) => {
@@ -181,14 +183,10 @@ export default function Userpage(props) {
           Create a Reservation
         </button>
         <Optionbar
-          planes={planes}
-          user={users}
-          userInfo={user}
           showBookingModal={showModal}
           visibility={visibility}
           hideModal={hideModal}
           // axiosSaveFilterCall={axiosSaveFilterCall}
-          instructorArr={instructorArr}
         />
         {/* <Modal visibility={visibility} hideModal={hideModal} /> */}
         <UserInfoModal
