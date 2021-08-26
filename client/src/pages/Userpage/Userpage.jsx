@@ -13,7 +13,6 @@ import {
   instructorRoleAction,
 } from "../../actions/userActions";
 import { setPlanesAction } from "../../actions/planesActions";
-import { sidebarToggle } from "../../actions/toggleActions";
 
 export default function Userpage(props) {
   //All the States
@@ -24,7 +23,6 @@ export default function Userpage(props) {
 
   const users = useSelector((state) => state.users.users);
   const sidebarToggle = useSelector((state) => state.sidebarToggle);
-
 
   const dispatch = useDispatch();
 
@@ -125,8 +123,6 @@ export default function Userpage(props) {
 
   //arr which only has Instructors
 
-
-
   //User Edit Page Submit Function
   const submitHandler = (state, name, phone, dateOfBirth, role) => {
     hideUserInfoModal();
@@ -155,7 +151,6 @@ export default function Userpage(props) {
     axiosUserIdCall();
     axiosPlaneCall();
     axiosUserRoleCall();
-    console.log("User Page useEffect");
   }, [setUser, editToggle]);
 
   if (!localStorage.getItem("token")) {

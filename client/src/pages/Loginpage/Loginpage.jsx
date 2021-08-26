@@ -81,18 +81,15 @@ function Loginpage() {
         headers: { "auth-token": localStorage.getItem("token") },
       })
       .then((res) => {
-        console.log("Ur JWT is valid");
         setIsLoggedIn(true);
       })
       .catch((err) => {
-        console.log("ur JWT is invalid");
       });
   };
 
   //Submit button function
   const loginHandler = (e) => {
     e.preventDefault();
-    console.log("Login handler");
     // if loginValidate() return true, runs the axios call
     const valid = loginValidate();
     if (valid) {
@@ -102,7 +99,6 @@ function Loginpage() {
           password: state.password,
         })
         .then((res) => {
-          console.log(res.data);
           setUser(res.data.user);
           localStorage.setItem("token", res.data.token);
           if (res.data.auth) {
@@ -128,7 +124,6 @@ function Loginpage() {
           password: state.password,
         })
         .then((res) => {
-          console.log(res);
           resetModal();
           setCreateToggle(false);
           alert("Account Created");

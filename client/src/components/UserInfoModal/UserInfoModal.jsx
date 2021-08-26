@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import "../Modal/Modal.scss";
 import "./UserInfoModal.scss";
 import ErrorBooking from "../ErrorBooking/ErrorBooking";
@@ -91,7 +90,6 @@ const UserInfoModal = ({
       dateOfBirth: user && user.dateOfBirth,
       role: user && user.role,
     });
-    console.log("use Effect in the user info");
   }, [editToggle]);
 
   if (!visibility) {
