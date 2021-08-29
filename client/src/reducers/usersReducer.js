@@ -5,7 +5,7 @@ const initialState = {
 export const usersReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_USERS":
-      return (state = { users: action.payload });
+      return (state = { users: action.payload.data });
     default:
       return state;
   }

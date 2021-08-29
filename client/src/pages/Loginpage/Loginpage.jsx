@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { Redirect, withRouter } from "react-router-dom";
 import "./Loginpage.scss";
 import ErrorBooking from "../../components/ErrorBooking/ErrorBooking";
+import { setUsersAction2 } from "../../actions/userActions";
 
 function Loginpage() {
   const clearDateStorage = () => {
@@ -28,6 +30,15 @@ function Loginpage() {
   let [user, setUser] = useState();
   let [isLoggedIn, setIsLoggedIn] = useState(false);
   let [createToggle, setCreateToggle] = useState(false);
+
+  const dispatch = useDispatch();
+  const test = useSelector((state) => state.users);
+
+  useEffect(() => {
+    dispatch(setUsersAction2());
+  }, []);
+
+  console.log(test);
 
   //Check if the input value is correct or not, if it is, return true, return false when it is not
   let loginValidate = () => {
@@ -83,8 +94,7 @@ function Loginpage() {
       .then((res) => {
         setIsLoggedIn(true);
       })
-      .catch((err) => {
-      });
+      .catch((err) => {});
   };
 
   //Submit button function

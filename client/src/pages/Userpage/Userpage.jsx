@@ -11,6 +11,7 @@ import {
   setUsersAction,
   selectUserAction,
   instructorRoleAction,
+  setUsersAction2,
 } from "../../actions/userActions";
 import { setPlanesAction } from "../../actions/planesActions";
 
@@ -23,7 +24,6 @@ export default function Userpage(props) {
 
   const users = useSelector((state) => state.users.users);
   const sidebarToggle = useSelector((state) => state.sidebarToggle);
-
   const dispatch = useDispatch();
 
   //Setting the Instructor Array
@@ -69,11 +69,13 @@ export default function Userpage(props) {
   };
 
   const axiosUserRoleCall = () => {
-    axios.get(userInfo__URL).then((res) => {
-      let data = res.data;
-      // setUserRole(data);
-      dispatch(setUsersAction(data));
-    });
+    // axios.get(userInfo__URL).then((res) => {
+    //   let data = res.data;
+    //   // setUserRole(data);
+    //   dispatch(setUsersAction(data));
+    // });
+    dispatch(setUsersAction2());
+    console.log(users);
   };
 
   const axiosUserIdCall = () => {
