@@ -59,14 +59,15 @@ export default function Userpage(props) {
 
   //Axios Call Function
   const axiosPlaneCall = () => {
-    axios
-      .get(planeURL)
-      .then((res) => {
-        dispatch(setPlanesAction(res.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // axios
+    //   .get(planeURL)
+    //   .then((res) => {
+    //     dispatch(setPlanesAction(res.data));
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    dispatch(setPlanesAction());
   };
 
   const axiosUserRoleCall = () => {
