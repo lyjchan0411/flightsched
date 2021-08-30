@@ -98,7 +98,7 @@ const CreateAccModal = ({ visibility, hideModal }) => {
     const valid = validate();
     if (valid) {
       axios
-        .post("http://localhost:5000/api/users/register", {
+        .post("https://my-flight-schedule.herokuapp.com/api/users/register", {
           name: state.name,
           phone: state.phone,
           email: state.email,

@@ -69,7 +69,9 @@ const Modal = ({
 
   const users = useSelector((state) => state.users.users);
   const customersArr = users.filter(
-    (user) => user.role.toLowerCase() !== "instructor"
+    (user) =>
+      user.role === undefined ||
+      (user.role && user.role.toLowerCase() !== "instructor")
   );
 
   const handleErrorBooking = (boolean) => {
@@ -190,7 +192,7 @@ const Modal = ({
         );
         setErrorBooking(false);
         hideModal();
-        const slotsURL = `http://localhost:5000/api/slots/${date}`;
+        const slotsURL = `https://my-flight-schedule.herokuapp.com/api/slots/${date}`;
         slotCall();
         reset();
       } catch {

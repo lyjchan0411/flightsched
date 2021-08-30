@@ -16,7 +16,7 @@ export default function Schedule({
 }) {
   const [slots, setSlots] = useState([]);
   const [loading, setLoading] = useState(false);
-  const slotsURL = `http://localhost:5000/api/slots/${date}`;
+  const slotsURL = `https://my-flight-schedule.herokuapp.com/api/slots/${date}`;
   const planes = useSelector((state) => state.planes.planes);
   const users = useSelector((state) => state.users.users);
 

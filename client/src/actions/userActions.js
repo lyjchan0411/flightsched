@@ -1,7 +1,9 @@
 import axios from "axios";
 
 export const setUsersAction = () => async (dispatch, getState) => {
-  const users = await axios.get("http://localhost:5000/api/users");
+  const users = await axios.get(
+    "https://my-flight-schedule.herokuapp.com/api/users"
+  );
   dispatch({
     type: "SET_USERS",
     payload: users,
@@ -16,7 +18,9 @@ export const setUsersAction = () => async (dispatch, getState) => {
 // };
 
 export const selectUserAction = (id) => async (dispatch, getState) => {
-  const user = await axios.get(`http://localhost:5000/api/users/${id}`);
+  const user = await axios.get(
+    `https://my-flight-schedule.herokuapp.com/api/users/${id}`
+  );
   dispatch({
     type: "SELECT_USER",
     payload: user.data,

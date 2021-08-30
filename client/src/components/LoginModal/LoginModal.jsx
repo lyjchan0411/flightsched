@@ -71,7 +71,7 @@ const LoginModal = ({ visibility, hideModal }) => {
     const valid = validate();
     if (valid) {
       axios
-        .post("http://localhost:5000/api/users/login", {
+        .post("https://my-flight-schedule.herokuapp.com/api/users/login", {
           email: state.email,
           password: state.password,
         })

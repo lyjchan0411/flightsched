@@ -53,8 +53,8 @@ export default function Userpage(props) {
   };
 
   //Axios call URL
-  const planeURL = "http://localhost:5000/api/planes";
-  const userInfo__URL = "http://localhost:5000/api/users";
+  const planeURL = "https://my-flight-schedule.herokuapp.com/api/planes";
+  const userInfo__URL = "https://my-flight-schedule.herokuapp.com/api/users";
   const userId = props[0].match.params.id;
 
   //Axios Call Function

@@ -77,7 +77,7 @@ function Loginpage() {
   //Function to check if the JWT is valid or not from the localStorage
   const checkAuthenticated = () => {
     axios
-      .get("http://localhost:5000/api/jwtValid", {
+      .get("https://my-flight-schedule.herokuapp.com/api/jwtValid", {
         headers: { "auth-token": localStorage.getItem("token") },
       })
       .then((res) => {
@@ -93,7 +93,7 @@ function Loginpage() {
     const valid = loginValidate();
     if (valid) {
       axios
-        .post("http://localhost:5000/api/users/login", {
+        .post("https://my-flight-schedule.herokuapp.com/api/users/login", {
           email: state.email,
           password: state.password,
         })
@@ -116,7 +116,7 @@ function Loginpage() {
     const valid = createAccValidation();
     if (valid) {
       axios
-        .post("http://localhost:5000/api/users/register", {
+        .post("https://my-flight-schedule.herokuapp.com/api/users/register", {
           name: state.name,
           phone: state.phone,
           email: state.email,
@@ -129,6 +129,7 @@ function Loginpage() {
         })
         .catch((err) => {
           console.log(err);
+          alert("Email is already existed");
         });
     }
   };

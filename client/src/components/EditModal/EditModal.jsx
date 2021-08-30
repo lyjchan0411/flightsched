@@ -70,7 +70,9 @@ const EditModal = ({
   const planes = useSelector((state) => state.planes.planes);
   const users = useSelector((state) => state.users.users);
   const customersArr = users.filter(
-    (user) => user.role.toLowerCase() !== "instructor"
+    (user) =>
+      user.role === undefined ||
+      (user.role && user.role.toLowerCase() !== "instructor")
   );
 
   const handleErrorBooking = (boolean) => {
@@ -107,7 +109,10 @@ const EditModal = ({
       }
     } else {
       try {
-        await axios.put(`http://localhost:5000/api/slots/${id}`, postData);
+        await axios.put(
+          `https://my-flight-schedule.herokuapp.com/api/slots/${id}`,
+          postData
+        );
         setIsEditing(false);
         slotCall();
       } catch {
