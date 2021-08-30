@@ -13,8 +13,10 @@ export const usersReducer = (state = initialState, action) => {
 
 export const selectUserReducer = (state = {}, action) => {
   switch (action.type) {
+    // case "SELECT_USER":
+    //   return { ...state, ...action.payload };
     case "SELECT_USER":
-      return { ...state, ...action.payload };
+      return (state = action.payload);
     default:
       return state;
   }

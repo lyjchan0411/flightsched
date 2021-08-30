@@ -11,7 +11,6 @@ import {
   setUsersAction,
   selectUserAction,
   instructorRoleAction,
-  setUsersAction2,
 } from "../../actions/userActions";
 import { setPlanesAction } from "../../actions/planesActions";
 
@@ -19,11 +18,13 @@ export default function Userpage(props) {
   //All the States
   const [visibility, setVisibility] = useState(false);
   const [userInfoModalVisibility, setUserInfoModalVisibility] = useState(false);
-  const [user, setUser] = useState();
+  // const [user, setUser] = useState();
   const [editToggle, setEditToggle] = useState(false);
 
+  //Redux Selector
   const users = useSelector((state) => state.users.users);
   const sidebarToggle = useSelector((state) => state.sidebarToggle);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   //Setting the Instructor Array
@@ -74,20 +75,20 @@ export default function Userpage(props) {
     //   // setUserRole(data);
     //   dispatch(setUsersAction(data));
     // });
-    dispatch(setUsersAction2());
-    console.log(users);
+    dispatch(setUsersAction());
   };
 
   const axiosUserIdCall = () => {
-    axios
-      .get(`${userInfo__URL}/${userId}`)
-      .then((res) => {
-        setUser(res.data);
-        dispatch(selectUserAction(res.data));
-      })
-      .catch((err) => {
-        console.log("Fetch User ID info error");
-      });
+    // axios
+    //   .get(`${userInfo__URL}/${userId}`)
+    //   .then((res) => {
+    //     setUser(res.data);
+    //     dispatch(selectUserAction(res.data));
+    //   })
+    //   .catch((err) => {
+    //     console.log("Fetch User ID info error");
+    //   });
+    dispatch(selectUserAction(userId));
   };
 
   // const axiosSaveFilterCall = (filterValue) => {
@@ -153,7 +154,7 @@ export default function Userpage(props) {
     axiosUserIdCall();
     axiosPlaneCall();
     axiosUserRoleCall();
-  }, [setUser, editToggle]);
+  }, [editToggle, dispatch]);
 
   if (!localStorage.getItem("token")) {
     alert("Your token has expired");

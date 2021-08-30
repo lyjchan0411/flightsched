@@ -11,7 +11,7 @@ const Navbar = ({ showUserInfoModal, props }) => {
 
   const dispatch = useDispatch();
   const name = useSelector((state) => state.user.name);
-
+  
   //Logout Function for the logout button
   const logoutHandler = () => {
     localStorage.removeItem("token");

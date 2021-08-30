@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const setUsersAction2 = () => async (dispatch, getState) => {
+export const setUsersAction = () => async (dispatch, getState) => {
   const users = await axios.get("http://localhost:5000/api/users");
   dispatch({
     type: "SET_USERS",
@@ -15,12 +15,20 @@ export const setUsersAction2 = () => async (dispatch, getState) => {
 //   };
 // };
 
-export const selectUserAction = (user) => {
-  return {
+export const selectUserAction = (id) => async (dispatch, getState) => {
+  const user = await axios.get(`http://localhost:5000/api/users/${id}`);
+  dispatch({
     type: "SELECT_USER",
-    payload: user,
-  };
+    payload: user.data,
+  });
 };
+
+// export const selectUserAction = (user) => {
+//   return {
+//     type: "SELECT_USER",
+//     payload: user,
+//   };
+// };
 
 export const instructorRoleAction = (users) => {
   return {
