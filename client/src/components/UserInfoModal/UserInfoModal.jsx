@@ -169,7 +169,6 @@ const UserInfoModal = ({
                 state.role
               );
               setValidation(true);
-              setEditToggle((editToggle) => false);
               resetInputValues();
             } else {
               setValidation(false);

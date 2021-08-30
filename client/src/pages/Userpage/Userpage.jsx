@@ -143,6 +143,7 @@ export default function Userpage(props) {
         headerToken
       )
       .then((res) => {
+        setEditToggle((editToggle) => false);
         alert("User Info has been edited");
         axiosUserIdCall();
       })
