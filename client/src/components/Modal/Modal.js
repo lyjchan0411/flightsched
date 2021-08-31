@@ -175,7 +175,10 @@ const Modal = ({
       }
     } else {
       try {
-        await axios.post("/api/slots", postData);
+        await axios.post(
+          "https://my-flight-schedule.herokuapp.com/api/slots",
+          postData
+        );
         setCustomer("");
         setDisplayName("");
         setFlightRoute("");
